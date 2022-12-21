@@ -4,6 +4,7 @@ CREATE COMPUTE MODULE IndividualMaintenance_Compute1
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
 		CALL CopyEntireMessage();
+		--Hello World
 		RETURN TRUE;
 	END;
 
