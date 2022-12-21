@@ -1,0 +1,30 @@
+BROKER SCHEMA com.mcb.customer
+
+CREATE COMPUTE MODULE IndividualMaintenance_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		CREATE LASTCHILD OF OutputRoot DOMAIN 'JSON';
+		CREATE LASTCHILD OF OutputRoot.JSON NAME 'Data';  
+		DECLARE outRef REFERENCE TO  OutputRoot.JSON.Data; 
+		SET outRef.ResponseStatus.ReturnCode = '200';
+		SET outRef.ResponseStatus.ErrorMsg = ''; 
+		
+		SET outRef.ResponseData.Exception.Code = '200'; 
+		SET outRef.ResponseData.Exception.Msg = 'Msg';
+		
+		SET outRef.ResponseData.Ind_Maint_Resp.OFS_Response_Code = '0'; 
+		SET outRef.ResponseData.Ind_Maint_Resp.OFS_Errors.OFS_Error_Message = 'SSS'; 
+		SET outRef.ResponseData.Ind_Maint_Resp.Id = 'x232';
+		SET outRef.ResponseData.Ind_Maint_Resp.RecordStatus = '00';
+		SET outRef.ResponseData.Ind_Maint_Resp.Tran.Tran_Id = '132exe22e2';
+		SET outRef.ResponseData.Ind_Maint_Resp.Tran.Tran_RecordStatus = 'SS';
+		SET outRef.ResponseData.Ind_Maint_Resp.Tran.Override_Items.Override_Id = 'xwe3rfddf';
+		SET outRef.ResponseData.Ind_Maint_Resp.Tran.Override_Items.Override = 'No';
+		SET outRef.ResponseData.Ind_Maint_Resp.Tran.Override_Items.Override_Flag = 'Y'; 
+	END;
+END MODULE;

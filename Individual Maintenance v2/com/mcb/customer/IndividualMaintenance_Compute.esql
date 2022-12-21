@@ -1,0 +1,143 @@
+BROKER SCHEMA com.mcb.customer
+
+CREATE COMPUTE MODULE IndividualMaintenance_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyEntireMessage();
+		RETURN FALSE; 
+	END;
+
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		DECLARE ns1 NAMESPACE 'http://www.w3.org/2001/XMLSchema-instance';
+		DECLARE schemaLocation NAMESPACE 'http://www.temenos.com/T24/OFSML/130 ../../xsd/ofsml.xsd';
+		DECLARE ns2 NAMESPACE 'http://www.temenos.com/T24/OFSML/130';
+
+		SET OutputRoot.XMLNSC.(XMLNSC.XmlDeclaration)*.Version = 1.0;
+		SET OutputRoot.XMLNSC.(XMLNSC.XmlDeclaration)*.Encoding = 'UTF8';
+		SET OutputRoot.XMLNSC.ns2:T24.(XMLNSC.NamespaceDecl)xmlns:xsi = ns1;
+		SET OutputRoot.XMLNSC.ns2:T24.(XMLNSC.NamespaceDecl)"xsi:schemaLocation" = schemaLocation;
+		SET OutputRoot.XMLNSC.ns2:T24.(XMLNSC.NamespaceDecl)xmlns = ns2;
+		-- SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:securityContext.ns2:userName = COALESCE(providerCredentials.values[1].username,'');
+		-- SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:securityContext.ns2:password = COALESCE(providerCredentials.values[1].password,'');
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:securityContext.ns2:userName = 'user';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:securityContext.ns2:password = 'user123';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Inputter.(XMLNSC.Attribute)Inputter_UserId = '12345';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Inputter.(XMLNSC.Attribute)Inputter_BUCode = 'gry345';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Auth_UserId = '988345';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Requestor.(XMLNSC.Attribute)Channel_Id = 'Channel5xscs';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Requestor.(XMLNSC.Attribute)Channel_ReqId = 'ReqId5xscs';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Product_Msg_Type.(XMLNSC.Attribute)Product_Id = 'PrdctId5xscs';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Product_Msg_Type.(XMLNSC.Attribute)Msg_Type = 'Msg_Type';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Posting_Mode = 'Posting_Mode';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Cust_No = 'Cust_No';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:OBRA_info.(XMLNSC.Attribute)ONBRD_MTHD_MCB = 'MTHD';--
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:OBRA_info.(XMLNSC.Attribute)OBRA_COMM_MCB = 'OBRA.COMM.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:OBRA_info.(XMLNSC.Attribute)OBRA_SCORE_MCB = 'OBRA.SCORE.MCB';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.(XMLNSC.Attribute)SHORT_NAME = 'SHORT.NAME';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.(XMLNSC.Attribute)TRADE_NAME= 'TRADE.NAME';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.(XMLNSC.Attribute)NARRATIVE = 'NARRATIVE';
+
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Name.(XMLNSC.Attribute)TITLE = 'TITLE';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Name.(XMLNSC.Attribute)GIVEN_NAMES = 'GIVEN.NAMES';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Name.(XMLNSC.Attribute)FAMILY_NAME = 'FAMILY.NAME';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Name.(XMLNSC.Attribute)MAIDEN_NAME = 'MAIDEN.NAME';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Other.(XMLNSC.Attribute)DATE_OF_BIRTH = 'DATE.OF.BIRTH';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Other.(XMLNSC.Attribute)GENDER= 'GENDER';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Other.(XMLNSC.Attribute)MARITAL_STATUS= 'MARITAL.STATUS';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Other.(XMLNSC.Attribute)NO_OF_DEPENDENTS = 'NO.OF.DEPENDENTS';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Other.(XMLNSC.Attribute)COUNTRY_BIRTH= 'COUNTRY.BIRTH';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:EDUCAT_LEVEL= 'EDUCAT.LEVEL';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.(XMLNSC.Attribute)EMPLOYED_BY = 'EMPLOYED.BY';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:UNEMP.DETAILS.(XMLNSC.Attribute)UE_TYP_MCB = 'UE.TYP.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:UNEMP.DETAILS.(XMLNSC.Attribute)UE_TYP_OTH_MCB = 'UE.TYP.OTH.MCB';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.(XMLNSC.Attribute)JOB_DESCRIPTION = 'JOB.DESCRIPTION';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.(XMLNSC.Attribute)WORKING_CONTRACT = 'WORKING.CONTRACT';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.(XMLNSC.Attribute)WORK_PMTFLG_MCB= 'WORK.PMTFLG.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:Work_Permit.(XMLNSC.Attribute)PERMIT_REF_MCB = 'PERMIT.REF.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:Work_Permit.(XMLNSC.Attribute)WORK_PMTNAT_MCB = 'WORK.PMTNAT.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:Work_Permit.(XMLNSC.Attribute)WORK_PMTST_MCB = 'WORK.PMTST.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:Work_Permit.(XMLNSC.Attribute)WORK_PMTEXP_MCB = 'WORK.PMTEXP.MCB';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:OCCUPATION_LIST.ns2:Occupation_Item.(XMLNSC.Attribute)OCCUPATION_ID = 'OCCUPATION.ID';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:OCCUPATION_LIST.ns2:Occupation_Item.(XMLNSC.Attribute)EMPLOYERS_BUSS = 'EMPLOYERS.BUSS';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:OCCUPATION_LIST.ns2:Occupation_Item.ns2:Employment.(XMLNSC.Attribute)EMPLOYERS_NAME = 'EMPLOYERS.NAME';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:OCCUPATION_LIST.ns2:Occupation_Item.ns2:Employment.(XMLNSC.Attribute)EMPLOYMENT_START = 'EMPLOYMENT.START';		
+
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:OCCUPATION_LIST.ns2:Occupation_Item.ns2:Employment.ns2:Income_info.(XMLNSC.Attribute)SALARY_DATE_FREQ = 'SALARY.DATE.FREQ';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:OCCUPATION_LIST.ns2:Occupation_Item.ns2:Employment.ns2:Income_info.(XMLNSC.Attribute)CUSTOMER_CURRENCY= 'CUSTOMER.CURRENCY';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:OCCUPATION_INFO.ns2:Occupation.ns2:OCCUPATION_LIST.ns2:Occupation_Item.ns2:Employment.ns2:Income_info.(XMLNSC.Attribute)SALARY = 'SALARY';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.(XMLNSC.Attribute)PUR.OF.REL.MCB = 'PUR.OF.REL.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.(XMLNSC.Attribute)PUR.RELDESC.MCB = 'PUR.RELDESC.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.ns2:SrcOfIncome_List.ns2:SrcOfIncome_Item.(XMLNSC.Attribute)INCOME_SRC_MCB= 'INCOME.SRC.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.ns2:SrcOfIncome_List.ns2:SrcOfIncome_Item.(XMLNSC.Attribute)INCOME_OTH_MCB = 'INCOME.OTH.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.ns2:SrcOfIncome_List.ns2:SrcOfIncome_Item.(XMLNSC.Attribute)INCOME_CCY_MCB = 'INCOME.CCY.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.ns2:SrcOfIncome_List.ns2:SrcOfIncome_Item.(XMLNSC.Attribute)INCOME_AMT_MCB = 'INCOME.AMT.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.ns2:SrcOfIncome_List.ns2:SrcOfIncome_Item.(XMLNSC.Attribute)INCOME_FQU_MCB = 'INCOME.FQU.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:SourceOfIncome_Info.ns2:SrcOfIncome_List.ns2:SrcOfIncome_Item.(XMLNSC.Attribute)INCOME_END_MCB = 'INCOME.END.MCB';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:CustStatus_Info.(XMLNSC.Attribute)Is_KYCed = 'Is_KYCed';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:CustStatus_Info.ns2:Info_Marker_List.ns2:Info_Marker_Item.(XMLNSC.Attribute)CU_INFO_MARKER = 'CU.INFO.MARKER';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:CustStatus_Info.ns2:Info_Marker_List.ns2:Info_Marker_Item.(XMLNSC.Attribute)CU_INFO_COMMENT = 'CU.INFO.COMMENT';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:CustStatus_Info.ns2:Info_Marker_List.ns2:Info_Marker_Item.(XMLNSC.Attribute)INFO_END_DATE = 'INFO.END.DATE';
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.(XMLNSC.Attribute)LANGUAGE = 'LANGUAGE';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.(XMLNSC.Attribute)COMM_CHANNEL = 'COMM.CHANNEL';  
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.ns2:PHONE.LIST.(XMLNSC.Attribute)PHONE_1 = 'PHONE.1';   
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.ns2:OFF.PHONE.LIST.(XMLNSC.Attribute)OFF_PHONE = 'OFF.PHONE';  
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.ns2:FAX.LIST.(XMLNSC.Attribute)FAX_1 = 'FAX.1';  
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.ns2:SMS.LIST.(XMLNSC.Attribute)MOBILE_OPERATOR = 'MOBILE.OPERATOR'; 
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.ns2:SMS.LIST.(XMLNSC.Attribute)SMS_1 = 'SMS.1'; 
+		
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Contact_Info.ns2:EMAIL.LIST.(XMLNSC.Attribute)EMAIL_1 = 'EMAIL.1';   
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Legal_Info.ns2:Legal_Info_List.ns2:Legal_Info_Item.(XMLNSC.Attribute)LEGAL_ID = 'LEGAL.ID';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Legal_Info.ns2:Legal_Info_List.ns2:Legal_Info_Item.(XMLNSC.Attribute)LEGAL_DOC_NAME = 'LEGAL.DOC.NAME';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Legal_Info.ns2:Legal_Info_List.ns2:Legal_Info_Item.(XMLNSC.Attribute)LEGAL_ISS_AUTH = 'LEGAL.ISS.AUTH';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Legal_Info.ns2:Legal_Info_List.ns2:Legal_Info_Item.(XMLNSC.Attribute)LEGAL_ISS_DATE = 'LEGAL.ISS.DATE';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Legal_Info.ns2:Legal_Info_List.ns2:Legal_Info_Item.(XMLNSC.Attribute)LEGAL_EXP_DATE = 'LEGAL.EXP.DATE'; 
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:CustomerSegment_Info.(XMLNSC.Attribute)TARGET = 'TARGET';   
+		
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Country_Info.(XMLNSC.Attribute)RESIDENCE = 'RESIDENCE';  
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Country_Info.(XMLNSC.Attribute)RESIDENCE_SINCE_DATE = 'RESIDENCE.SINCE.DATE';  
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Country_Info.(XMLNSC.Attribute)RESIDENCE_STATUS = 'RESIDENCE.STATUS';  
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Country_Info.(XMLNSC.Attribute)NATIONALITY = 'NATIONALITY';  
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:Country_Info.ns2:OtherNationality_list.(XMLNSC.Attribute)OTHER_NATIONALITY = 'OTHER.NATIONALITY';  
+		
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:TaxRegime_List.ns2:TaxRegime_Item.(XMLNSC.Attribute)COUNTRY_TAX_MCB= 'COUNTRY.TAX.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:TaxRegime_List.ns2:TaxRegime_Item.(XMLNSC.Attribute)RECALCITRANT_MCB= 'RECALCITRANT.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:TaxRegime_List.ns2:TaxRegime_Item.(XMLNSC.Attribute)TAX_CLASS_MCB= 'TAX.CLASS.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:TaxRegime_List.ns2:TaxRegime_Item.(XMLNSC.Attribute)TAX_REPORT_MCB= 'TAX.REPORT.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:TaxRegime_List.ns2:TaxRegime_Item.(XMLNSC.Attribute)TAX_NUMBER_MCB = 'TAX.NUMBER.MCB';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:TaxRegime_List.ns2:TaxRegime_Item.(XMLNSC.Attribute)TAXABLE_MCB = 'TAXABLE.MCB';
+
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:KYC_Address.(XMLNSC.Attribute)STREET_ADDR = 'STREET.ADDR';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:KYC_Address.(XMLNSC.Attribute)ADDRESS_LINE2 = 'ADDRESS.LINE2';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:KYC_Address.(XMLNSC.Attribute)ADDRESS_LINE3 = 'ADDRESS.LINE3';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:KYC_Address.(XMLNSC.Attribute)TOWN_COUNTRY = 'TOWN.COUNTRY';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:KYC_Address.(XMLNSC.Attribute)POST_CODE = 'POST.CODE';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:KYC_Address.(XMLNSC.Attribute)COUNTRY_CODE = 'COUNTRY.CODE';
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:KYC_Address.(XMLNSC.Attribute)DESPATCH_CODE = 'DESPATCH.CODE'; 
+
+
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:BankOfficers.(XMLNSC.Attribute)AO_SIGN_ON = 'AO.SIGN.ON'; 
+		SET OutputRoot.XMLNSC.ns2:T24.ns2:serviceRequest.ns2:Tran_Data.ns2:BankOfficers.(XMLNSC.Attribute)ALT_AO_SIGN_ON = 'ALT.AO.SIGN.ON';   
+		PROPAGATE TO TERMINAL 'out'; 
+	END;
+END MODULE;
